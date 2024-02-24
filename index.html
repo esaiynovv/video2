@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Фоновое видео со звуком</title>
+<style>
+  /* Стили для фонового видео */
+  .background-video {
+    position: fixed; /* Фиксированное положение */
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%; /* Ширина */
+    height: 100%; /* Высота */
+    object-fit: cover; /* Видео покрывает весь экран, сохраняя пропорции */
+    z-index: -1; /* Помещаем видео за содержимым страницы */
+  }
+  /* Стили для кнопки воспроизведения */
+  .play-button {
+    position: fixed; /* Фиксированное положение */
+    top: 50%; /* Центрирование по вертикали */
+    left: 50%; /* Центрирование по горизонтали */
+    transform: translate(-50%, -50%); /* Финальное центрирование */
+    z-index: 2; /* Помещаем кнопку над видео */
+    font-size: 20px; /* Размер шрифта */
+    padding: 10px 20px; /* Отступы внутри кнопки */
+    cursor: pointer; /* Курсор в виде указателя */
+  }
+</style>
+</head>
+<body>
+
+<video autoplay loop playsinline muted class="background-video" id="backgroundVideo">
+  <source src="VIDEO-2024-02-23-08-57-01.mp4" type="video/mp4">
+  Ваш браузер не поддерживает HTML5 видео.
+</video>
+
+<button class="play-button" id="playButton">Воспроизвести со звуком</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+  const button = document.getElementById('playButton');
+  const video = document.getElementById('backgroundVideo');
+
+  // Функция для перехода в полноэкранный режим
+  function goFullScreen() {
+    if (video.requestFullscreen) {
+      video.requestFullscreen();
+    } else if (video.mozRequestFullScreen) { /* Firefox */
+      video.mozRequestFullScreen();
+    } else if (video.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+      video.webkitRequestFullscreen();
+    } else if (video.msRequestFullscreen) { /* IE/Edge */
+      video.msRequestFullscreen();
+    }
+  }
+
+  // Переключение звука и переход в полноэкранный режим при клике на кнопку
+  button.onclick = function() {
+    if (video.muted) {
+      video.muted = false;
+      goFullScreen(); // Переход в полноэкранный режим
+      button.style.display = 'none'; // Скрываем кнопку после включения звука
+    }
+  };
+});
+
+</script>
+
+</body>
+</html>
